@@ -1,0 +1,199 @@
+/* TYPEFACE */
+
+@font-face {
+    font-family: 'rBold';
+    src: url(./fonts/readexpro-bold-webfont.woff2) format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'rMed';
+    src: url(./fonts/readexpro-medium-webfont.woff2) format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* STRUCTURE (BODY, CONTAINER & CALCULATOR GRID) */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: hsl(210, 35%, 39%);
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+
+#calculator {
+    display: inline-grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 420px;
+    grid-gap: 2px;
+    border: 3px solid rgb(28, 44, 59);
+    border-radius: 30px;
+    background: rgb(27, 43, 58);
+}
+
+sup {
+    font-size: 1.5rem;
+    position: relative;
+    bottom: 1rem;
+}
+
+/* DISPLAY */
+
+[data-type='display'].result {
+    grid-column: 1/ span 5;
+    border-radius: 27px 27px 0 0;
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+    justify-content: right;
+    font-size: 2.4rem;
+    color: hsl(210, 50%, 75%);
+    background-color: hsl(210, 30%, 48%);
+}
+
+/* BUTTONS */
+
+[data-type='button'] {
+    font-family: 'rBold', sans-serif;
+    font-size: 3rem;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+[data-type='button'],
+[data-type='display'] {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    height: 3rem;
+    font-family: 'rMed', sans-serif;
+}
+
+/* CLEAR AND DELETE */
+
+[data-type='button'].clear {
+    grid-column: 1 / span 2;
+    font-size: 1.8rem;
+    color: hsl(331, 28%, 74%);
+    background-color: hsl(330, 46%, 37%);
+}
+
+[data-type='button'].clear:active {
+    color: hsl(331, 28%, 70%);
+    background-color: hsl(330, 46%, 32%);
+}
+
+[data-type='button'].del {
+    font-size: 1.8rem;
+    color: hsl(331, 28%, 74%);
+    background-color: hsl(330, 34%, 45%);
+}
+
+[data-type='button'].del:active {
+    color: hsl(331, 28%, 70%);
+    background-color: hsl(330, 34%, 40%);
+}
+
+/* NUMBER BUTTONS */
+
+[data-type='button'].number {
+    color: hsl(210, 30%, 75%);
+    background-color: hsl(210, 33%, 35%);
+}
+
+[data-type='button'].number:active {
+    color: hsl(210, 30%, 65%);
+    background-color: hsl(210, 33%, 30%);
+}
+
+/* SECONDARY BUTTONS */
+
+[data-type='button'].secondary {
+    color: hsl(210, 30%, 75%);
+    background-color: hsl(210, 33%, 30%);
+}
+
+[data-type='button'].secondary:active {
+    color: hsl(210, 30%, 65%);
+    background-color: hsl(210, 33%, 25%);
+}
+
+[data-type='button'].secondary > span {
+    font-size: 2rem;
+}
+
+[data-type='button'].secondary > span.sup {
+    position: relative;
+    bottom: .4rem;
+    left: .2rem;
+    font-size: 1.75rem;
+}
+
+[data-type='button'].secondary > span.sub {
+    position: relative;
+    top: .5rem;
+    right: .1rem;
+    font-size: 1.75rem;
+}
+
+[data-func='inversion'] {
+    border-radius: 0 0 0 27px;
+}
+
+/* OPERATOR BUTTONS */
+
+[data-func='modulo'][data-type='button'].operator {
+    font-size: 2.2rem;
+}
+
+[data-type='button'].operator {
+    color: hsl(90, 28%, 75%);
+    background-color: hsl(90, 38%, 40%);
+}
+
+[data-type='button'].operator:active {
+    color: hsl(90, 28%, 65%);
+    background-color: hsl(90, 38%, 35%);
+}
+
+/* SCIENTIFIC BUTTONS */
+
+[data-type='button'].scientific {
+    color: hsl(89, 40%, 30%);
+    background-color: hsl(90, 40%, 45%);
+}
+
+[data-type='button'].scientific:active {
+    color: hsl(90, 41%, 25%);
+    background-color: hsl(90, 42%, 40%);
+}
+
+/* EQUALITY BUTTON */
+
+[data-type='button'].equality {
+    grid-column: 5 / span 1;
+    grid-row: 5 / span 2;
+    height: auto;
+    border-radius: 0 0 27px 0;
+    color: hsl(90, 30%, 70%);
+    background-color: hsl(90, 37%, 33%);
+}
+
+[data-type='button'].equality:active {
+    color: hsl(90, 30%, 60%);
+    background-color: hsl(90, 37%, 29%);
+}
