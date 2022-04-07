@@ -4,13 +4,14 @@ import { numberInput } from './logic.mjs';
 let currentNumber = 0;
 let isWholeNumber = true;
 let decimalPlace = 10;
-// editors
-const clearButton = document.querySelector('[data-func="clear"]');
+
+// EDITOR
+function clearCurrentNumber() {
+  const clearButton = document.querySelector('[data-func="clear"]');
+  clearButton.addEventListener('click', () => currentNumber = 0);
+}
+
 const delButton = document.querySelector('[data-func="delete"]');
-// modifiers
-const operatorButtons = document.querySelector('.operator');
-const scientificButtons = document.querySelector('.scientific');
-const equalButton = document.querySelector('[data-func="equality"]');
 
 // NUMBER PAD
 function updateCurrentNumber() {
@@ -20,7 +21,7 @@ function updateCurrentNumber() {
     if (isWholeNumber) currentNumber = updateIntegerWith(userInput);
     else {
       currentNumber = updateDecimalWith(userInput);
-      decimalPlace = incrementByTen(decimalPlace);
+      decimalPlace = decimalPlace * 10;
     }
     console.log(currentNumber);
   }));
@@ -33,19 +34,27 @@ function activateDecimalButton() {
 
 function invertCurrentNumber() {
   const invertButton = document.querySelector('[data-func="inversion"]');
-  invertButton.addEventListener('click', () => currentNumber * -1);
+  invertButton.addEventListener('click', () => {
+    return currentNumber *= -1;
+  });
 }
 
 // MODIFIERS
+const operatorButtons = document.querySelector('.operator');
+const scientificButtons = document.querySelector('.scientific');
+const equalButton = document.querySelector('[data-func="equality"]');
 
 export function runEvents() {
   updateCurrentNumber();
   activateDecimalButton();
+  invertCurrentNumber();
 }
 
 // HELPERS ---------------------------------------------------------------------
 
-function incrementByTen(val) { return val * 10; }
+function incrementByTen(val) {
+  return val * 10;
+}
 
 function updateIntegerWith(input) {
   if (currentNumber === 0) return input;
@@ -55,7 +64,12 @@ function updateIntegerWith(input) {
 
 function updateDecimalWith(input) {
   if (currentNumber === 0) return input / decimalPlace;
-  else if (currentNumber < 0) return currentNumber - (input / decimalPlace);
-  else return currentNumber + (input / decimalPlace);
-  // else return (((currentNumber + (input / decimalPlace)) * decimalPlace) << 0);
+  else if (currentNumber < 0) {
+    const val = currentNumber - (input / decimalPlace);
+    return Math.round((val) * decimalPlace) / decimalPlace;
+  } else {
+    const val = currentNumber + (input / decimalPlace);
+    return Math.round((val) * decimalPlace) / decimalPlace;
+  }
+
 }
