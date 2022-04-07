@@ -1,24 +1,27 @@
-import { updateDisplay } from './interface.mjs';
+// import { updateDisplay } from './interface.mjs';
 
-const currentValues = {
-  firstNumber: null,
-  operator: null,
-  secondNumber: null
-};
+const displayValue = { number: 0 }
 
-export function interfaceToLogic(value) {
-  return value;
+
+function fromLogicToInterface(value) {
+  updateDisplay(value);
 }
-
-export function logicToInterface(interfaceToLogic) {
-  updateDisplay(interfaceToLogic);
-}
-
-//
 
 function root(formula) {
 
 }
 
+// EXPORTS ---------------------------------------------------------------------
+
+export function numberInput(value) {
+  fromLogicToInterface(value);
+}
 
 // HELPERS ---------------------------------------------------------------------
+function increment(value) {
+  return value * 10;
+}
+
+function decrement(value) {
+  return value / 10;
+}

@@ -1,6 +1,6 @@
 export const elements = [
   [
-    { html: 'RESULT', func: 'display', class: 'result' }
+    { html: '', func: 'display', class: 'result' }
   ],
   [
     { html: 'CLEAR', func: 'clear', class: 'clear' },
