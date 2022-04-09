@@ -1,75 +1,127 @@
-import { numberInput } from './logic.mjs';
-// import { updateDisplay } from './interface.mjs';
-
-let currentNumber = 0;
-let isWholeNumber = true;
-let decimalPlace = 10;
+import {
+  addition,
+  clearCurrentNumber,
+  division,
+  exponential,
+  factorial,
+  invert,
+  modulo,
+  multiplication,
+  number,
+  removeLastDigit,
+  root,
+  runOperation,
+  subtraction,
+  updateDecimalWith,
+  updateIntegerWith,
+} from '/modules/calculator/logic.mjs';
 
 // EDITOR
-function clearCurrentNumber() {
-  const clearButton = document.querySelector('[data-func="clear"]');
-  clearButton.addEventListener('click', () => currentNumber = 0);
+function wireClearButton() {
+  const button = document.querySelector('[data-func="clear"]');
+  button.addEventListener('click', () => clearCurrentNumber());
 }
 
-const delButton = document.querySelector('[data-func="delete"]');
+function wireDeleteButton() {
+  const button = document.querySelector('[data-func="delete"]');
+  button.addEventListener('click', () => removeLastDigit());
+}
 
 // NUMBER PAD
-function updateCurrentNumber() {
-  const numberButtons = document.querySelectorAll('.number');
-  numberButtons.forEach(button => button.addEventListener('click', () => {
+function wireNumberButtons() {
+  const buttons = document.querySelectorAll('.number');
+  buttons.forEach(button => button.addEventListener('click', () => {
     const userInput = Number(button.getAttribute('data-func'));
-    if (isWholeNumber) currentNumber = updateIntegerWith(userInput);
-    else {
-      currentNumber = updateDecimalWith(userInput);
-      decimalPlace = decimalPlace * 10;
-    }
-    console.log(currentNumber);
+    number.isWhole ? updateIntegerWith(userInput) : updateDecimalWith(userInput);
   }));
 }
 
-function activateDecimalButton() {
-  const fractionButton = document.querySelector('[data-func="."]');
-  fractionButton.addEventListener('click', () => isWholeNumber = false);
+function wireDecimalButton() {
+  const button = document.querySelector('[data-func="."]');
+  button.addEventListener('click', () => number.isWhole = false);
 }
 
-function invertCurrentNumber() {
-  const invertButton = document.querySelector('[data-func="inversion"]');
-  invertButton.addEventListener('click', () => {
-    return currentNumber *= -1;
+function wireInversionButton() {
+  const button = document.querySelector('[data-func="inversion"]');
+  button.addEventListener('click', () => invert());
+}
+
+// OPERATORS
+function wireModuloButton() {
+  const button = document.querySelectorAll('[data-func="modulo"]');
+  button.addEventListener('click', () => {
+    number.saved = number.current;
+    number.operator = 'modulo';
   });
 }
 
-// MODIFIERS
-const operatorButtons = document.querySelector('.operator');
-const scientificButtons = document.querySelector('.scientific');
-const equalButton = document.querySelector('[data-func="equality"]');
+function wireDivisionButton() {
+  const button = document.querySelectorAll('[data-func="division"]');
+  button.addEventListener('click', () => {
+    number.saved = number.current;
+    number.operator = 'division';
+  });
+}
+
+function wireMultiplicationButton() {
+  const button = document.querySelectorAll('[data-func="multiplication"]');
+  button.addEventListener('click', () => {
+    number.saved = number.current;
+    number.operator = 'multiplication';
+  });
+}
+
+function wireSubtractionButton() {
+  const button = document.querySelectorAll('[data-func="subtraction"]');
+  button.addEventListener('click', () => {
+    number.saved = number.current;
+    number.operator = 'subtraction';
+  });
+}
+
+function wireAdditionButton() {
+  const button = document.querySelectorAll('[data-func="addition"]');
+  button.addEventListener('click', () => {
+    number.saved = number.current;
+    number.operator = 'addition';
+  });
+}
+
+// SCIENTIFIC
+function wireFactorialButton() {
+  const button = document.querySelector('[data-func="root"]');
+  button.addEventListener('click', () => factorial());
+}
+
+function wireExponentialButton() {
+  const button = document.querySelector('[data-func="root"]');
+  button.addEventListener('click', () => exponential(number.current));
+}
+
+function wireRootButton() {
+  const button = document.querySelector('[data-func="root"]');
+  button.addEventListener('click', () => root(number.current));
+}
+
+// EQUALITY
+function wireEqualityButton() {
+  const button = document.querySelector('[data-func="equality"]');
+  button.addEventListener('click', () => runOperation());
+}
 
 export function runEvents() {
-  updateCurrentNumber();
-  activateDecimalButton();
-  invertCurrentNumber();
-}
-
-// HELPERS ---------------------------------------------------------------------
-
-function incrementByTen(val) {
-  return val * 10;
-}
-
-function updateIntegerWith(input) {
-  if (currentNumber === 0) return input;
-  else if (currentNumber < 0) return (currentNumber * 10) - input;
-  else return (currentNumber * 10) + input;
-}
-
-function updateDecimalWith(input) {
-  if (currentNumber === 0) return input / decimalPlace;
-  else if (currentNumber < 0) {
-    const val = currentNumber - (input / decimalPlace);
-    return Math.round((val) * decimalPlace) / decimalPlace;
-  } else {
-    const val = currentNumber + (input / decimalPlace);
-    return Math.round((val) * decimalPlace) / decimalPlace;
-  }
-
+  wireClearButton();
+  wireDeleteButton();
+  wireNumberButtons();
+  wireDecimalButton();
+  wireInversionButton();
+  wireModuloButton();
+  wireDivisionButton();
+  wireMultiplicationButton();
+  wireSubtractionButton();
+  wireAdditionButton();
+  wireFactorialButton();
+  wireExponentialButton();
+  wireRootButton();
+  wireEqualityButton();
 }

@@ -1,3 +1,4 @@
+// import { number } from 'logic.mjs'
 import { elements } from './elements.mjs';
 
 function constructInterface() {
@@ -17,27 +18,13 @@ function constructInterface() {
     }));
 }
 
-
 // EXPORTS ---------------------------------------------------------------------
-
-function updateDisplay(value) {
-  const display = document.querySelector('[data-func="display"]');
-  if (value === undefined) {
-    display.textContent = '0';
-  } else if (value === '.' && /\./.test(display.textContent)) {
-    display.textContent;
-  } else if (value === 'inversion') {
-
-  } else {
-    (display.textContent === '0') && (display.textContent = '');
-    display.textContent += value;
-  }
-}
-
+// export function updateDisplay() {
+//   const display = document.querySelector('[data-func="display"]');
+//   display.textContent = String(number.saved);
+// }
 
 export function runInterface() {
   constructInterface();
-  updateDisplay();
+  // updateDisplay();
 }
-
-// HELPERS ---------------------------------------------------------------------
