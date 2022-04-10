@@ -15,6 +15,7 @@ import {
   updateDecimalWith,
   updateIntegerWith,
 } from '/modules/calculator/logic.mjs';
+import { updateDisplay } from './logic.mjs';
 
 // EDITOR
 function wireClearButton() {
@@ -48,42 +49,44 @@ function wireInversionButton() {
 
 // OPERATORS
 function wireModuloButton() {
-  const button = document.querySelectorAll('[data-func="modulo"]');
+  const button = document.querySelector('[data-func="modulo"]');
   button.addEventListener('click', () => {
-    number.saved = number.current;
+    number.register = number.output;
     number.operator = 'modulo';
   });
 }
 
 function wireDivisionButton() {
-  const button = document.querySelectorAll('[data-func="division"]');
+  const button = document.querySelector('[data-func="division"]');
   button.addEventListener('click', () => {
-    number.saved = number.current;
+    number.register = number.output;
     number.operator = 'division';
   });
 }
 
 function wireMultiplicationButton() {
-  const button = document.querySelectorAll('[data-func="multiplication"]');
+  const button = document.querySelector('[data-func="multiplication"]');
   button.addEventListener('click', () => {
-    number.saved = number.current;
+    number.register = number.output;
     number.operator = 'multiplication';
   });
 }
 
 function wireSubtractionButton() {
-  const button = document.querySelectorAll('[data-func="subtraction"]');
+  const button = document.querySelector('[data-func="subtraction"]');
   button.addEventListener('click', () => {
-    number.saved = number.current;
+    number.register = number.output;
     number.operator = 'subtraction';
   });
 }
 
 function wireAdditionButton() {
-  const button = document.querySelectorAll('[data-func="addition"]');
+  const button = document.querySelector('[data-func="addition"]');
   button.addEventListener('click', () => {
-    number.saved = number.current;
+    number.register = number.output;
+    number.output = 0;
     number.operator = 'addition';
+    updateDisplay(number.register)
   });
 }
 
@@ -95,21 +98,24 @@ function wireFactorialButton() {
 
 function wireExponentialButton() {
   const button = document.querySelector('[data-func="root"]');
-  button.addEventListener('click', () => exponential(number.current));
+  button.addEventListener('click', () => exponential(number.register));
 }
 
 function wireRootButton() {
   const button = document.querySelector('[data-func="root"]');
-  button.addEventListener('click', () => root(number.current));
+  button.addEventListener('click', () => root(number.register));
 }
 
 // EQUALITY
 function wireEqualityButton() {
   const button = document.querySelector('[data-func="equality"]');
-  button.addEventListener('click', () => runOperation());
+  button.addEventListener('click', () => {
+    runOperation();
+    updateDisplay();
+  });
 }
 
-export function runEvents() {
+export function wireButtons() {
   wireClearButton();
   wireDeleteButton();
   wireNumberButtons();

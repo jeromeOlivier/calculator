@@ -1,35 +1,45 @@
 // import { updateDisplay } from './interface.mjs';
 
 export const number = {
-  result: 0,
-  saved: 0,
-  current: 0,
+  output: 0,
+  register: 0,
   operator: '',
   isWhole: true,
   decimalPlace: 10,
-  string: function() {
-    return this.current.toString();
+  string: function() { return this.register.toString(); },
+  all: function() {
+    console.log(
+      `
+      output: ${this.output}, 
+      register: ${this.register}, 
+      operator: ${this.operator},
+      isWhole: ${this.isWhole},
+      decimalPlace: ${this.decimalPlace}
+      `);
   }
 }
 
 export function modulo() {
-  return number.saved %= number.current;
+  return number.output %= number.register;
 }
 
 export function division() {
-  return number.saved /= number.current;
+  return number.output /= number.register;
 }
 
 export function multiplication() {
-  return number.saved *= number.current;
+  return number.output *= number.register;
 }
 
 export function subtraction() {
-  return number.saved -= number.current;
+  return number.output -= number.register;
 }
 
 export function addition() {
-  return number.saved += number.current;
+  // const cache = number.output;
+  number.output += number.register;
+  // number.register = cache;
+  updateDisplay(number.output);
 }
 
 export function factorial() {
@@ -43,7 +53,7 @@ export function root() {
 
 }
 
-export function invert() { return number.current * -1; }
+export function invert() { return number.register * -1; }
 
 export function runOperation() {
   (number.operator === 'modulo') && modulo();
@@ -51,7 +61,6 @@ export function runOperation() {
   (number.operator === 'multiplication') && multiplication();
   (number.operator === 'subtraction') && subtraction();
   (number.operator === 'addition') && addition();
-  // updateDisplay();
 }
 
 // HELPERS ---------------------------------------------------------------------
@@ -63,37 +72,49 @@ function updateNumberIsWholeBoolean() {
 }
 
 export function updateIntegerWith(input) {
-  if (number.current === 0) {
-    return input;
-  } else if (number.current < 0) {
-    return number.current = (number.current * 10) - input;
+  if (number.output === 0) {
+    number.output = input;
+    const num = number.output;
+    updateDisplay(num);
+  } else if (number.output < 0) {
+    number.output = (number.output * 10) - input;
+    updateDisplay(number.output);
   } else {
-    return number.current = (number.current * 10) + input;
+    number.output = (number.output * 10) + input;
+    updateDisplay(number.output);
   }
 }
 
 export function updateDecimalWith(input) {
-  if (number.current === 0) {
-    return input / number.decimalPlace;
-  } else if (number.current < 0) {
-    const val = number.current - (input / number.decimalPlace);
-    const valProperlyRounded = Math.round((val) * number.decimalPlace) / number.decimalPlace;
+  if (number.output === 0) {
+    number.output = input / number.decimalPlace;
     number.decimalPlace *= 10;
-    return valProperlyRounded
+    updateDisplay(number.output);
+  } else if (number.output < 0) {
+    const output = number.output - (input / number.output);
+    number.output = Math.round((output) * number.decimalPlace) / number.decimalPlace;
+    number.decimalPlace *= 10;
+    updateDisplay(number.output);
   } else {
-    const val = number.current + (input / number.decimalPlace);
-    const valProperlyRounded = Math.round((val) * number.decimalPlace) / number.decimalPlace;
+    const output = number.output + (input / number.decimalPlace);
+    number.output = Math.round((output) * number.decimalPlace) / number.decimalPlace;
     number.decimalPlace *= 10;
-    return valProperlyRounded
+    updateDisplay(number.output);
   }
 }
 
 export function removeLastDigit() {
   updateNumberIsWholeBoolean();
-  return Number(number.string().substring(0, number.current.length - 1));
+  return Number(number.string().substring(0, number.register.length - 1));
 }
 
 export function clearCurrentNumber() {
-  number.current = 0;
+  number.register = 0;
   number.isWhole = true;
+}
+
+export function updateDisplay(value) {
+  const display = document.querySelector('[data-func="display"]');
+  // console.log(value.toString());
+  display.textContent = value.toString();
 }

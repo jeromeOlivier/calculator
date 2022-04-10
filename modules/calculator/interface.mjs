@@ -1,7 +1,8 @@
-// import { number } from 'logic.mjs'
 import { elements } from './elements.mjs';
 
-function constructInterface() {
+// import { number } from './logic.mjs';
+
+export function constructInterface() {
   const calculator = document.querySelector('#calculator');
   elements.forEach(row =>
     row.forEach(e => {
@@ -18,13 +19,8 @@ function constructInterface() {
     }));
 }
 
-// EXPORTS ---------------------------------------------------------------------
-// export function updateDisplay() {
+// export function updateDisplay(value) {
 //   const display = document.querySelector('[data-func="display"]');
-//   display.textContent = String(number.saved);
+//   console.log(value.toString());
+//   display.textContent = value.toString();
 // }
-
-export function runInterface() {
-  constructInterface();
-  // updateDisplay();
-}
