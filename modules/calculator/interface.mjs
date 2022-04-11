@@ -18,9 +18,3 @@ export function constructInterface() {
       calculator.appendChild(element);
     }));
 }
-
-// export function updateDisplay(value) {
-//   const display = document.querySelector('[data-func="display"]');
-//   console.log(value.toString());
-//   display.textContent = value.toString();
-// }

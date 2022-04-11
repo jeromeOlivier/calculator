@@ -1,45 +1,45 @@
-// import { updateDisplay } from './interface.mjs';
-
 export const number = {
+  register01: 0,
+  register02: 0,
   output: 0,
-  register: 0,
-  operator: '',
+  operator: undefined,
   isWhole: true,
   decimalPlace: 10,
-  string: function() { return this.register.toString(); },
-  all: function() {
+  string: function () {
+    return this.output.toString();
+  },
+  all: function () {
     console.log(
-      `
-      output: ${this.output}, 
-      register: ${this.register}, 
-      operator: ${this.operator},
-      isWhole: ${this.isWhole},
-      decimalPlace: ${this.decimalPlace}
-      `);
-  }
-}
+      'output: ' + this.output + "\n" +
+      'register01: ' + this.register01 + "\n" +
+      'register02: ' + this.register02 + "\n" +
+      'operator: ' + this.operator + "\n" +
+      'isWhole: ' + this.isWhole  + "\n" +
+      'decimalPlace: ' + this.decimalPlace + "\n"
+      );
+  },
+};
 
 export function modulo() {
-  return number.output %= number.register;
+  return number.output %= number.register01;
 }
 
 export function division() {
-  return number.output /= number.register;
+  return number.output /= number.register01;
 }
 
 export function multiplication() {
-  return number.output *= number.register;
+  return number.output *= number.register01;
 }
 
 export function subtraction() {
-  return number.output -= number.register;
+  return number.output -= number.register01;
 }
 
 export function addition() {
-  // const cache = number.output;
-  number.output += number.register;
-  // number.register = cache;
+  number.output += number.register01;
   updateDisplay(number.output);
+  number.all();
 }
 
 export function factorial() {
@@ -53,7 +53,9 @@ export function root() {
 
 }
 
-export function invert() { return number.register * -1; }
+export function invert() {
+  return number.register01 * -1;
+}
 
 export function runOperation() {
   (number.operator === 'modulo') && modulo();
@@ -61,10 +63,11 @@ export function runOperation() {
   (number.operator === 'multiplication') && multiplication();
   (number.operator === 'subtraction') && subtraction();
   (number.operator === 'addition') && addition();
+  number.register02 = 0;
 }
 
 // HELPERS ---------------------------------------------------------------------
-function updateNumberIsWholeBoolean() {
+function updateIsWholeBoolean() {
   if (!number.isWhole) {
     number.decimalPlace = number.decimalPlace / 10;
     if (number.decimalPlace / 10 === 1) number.isWhole = true;
@@ -72,18 +75,38 @@ function updateNumberIsWholeBoolean() {
 }
 
 export function updateIntegerWith(input) {
-  if (number.output === 0) {
-    number.output = input;
-    const num = number.output;
-    updateDisplay(num);
-  } else if (number.output < 0) {
-    number.output = (number.output * 10) - input;
-    updateDisplay(number.output);
+  if (number.operator === undefined) {
+    if (number.register01 === 0) {
+      number.register01 = input;
+      number.output = number.register01;
+      updateDisplay(number.output);
+    } else if (number.register01 < 0) {
+      number.register01 = (number.register01 * 10) - input;
+      number.output = number.register01;
+      updateDisplay(number.output);
+    } else {
+      number.register01 = (number.register01 * 10) + input;
+      number.output = number.register01;
+      updateDisplay(number.output);
+    }
   } else {
-    number.output = (number.output * 10) + input;
-    updateDisplay(number.output);
+    if (number.register02 === 0) {
+      number.register02 = input;
+      number.output = number.register02;
+      updateDisplay(number.output);
+    } else if (number.register02 < 0) {
+      number.register02 = (number.register02 * 10) - input;
+      number.output = number.register02;
+      updateDisplay(number.output);
+    } else {
+      number.register02 = (number.register02 * 10) + input;
+      number.output = number.register02;
+      updateDisplay(number.output);
+    }
   }
+  number.all();
 }
+
 
 export function updateDecimalWith(input) {
   if (number.output === 0) {
@@ -104,17 +127,20 @@ export function updateDecimalWith(input) {
 }
 
 export function removeLastDigit() {
-  updateNumberIsWholeBoolean();
-  return Number(number.string().substring(0, number.register.length - 1));
+  updateIsWholeBoolean();
+  number.output = Number(number.string().substring(0, number.string().length - 1));
+  updateDisplay(number.output);
+  console.log(number.output);
 }
 
 export function clearCurrentNumber() {
-  number.register = 0;
+  number.output = 0;
+  number['1stRegister'] = 0;
   number.isWhole = true;
+  updateDisplay(number.output);
 }
 
 export function updateDisplay(value) {
   const display = document.querySelector('[data-func="display"]');
-  // console.log(value.toString());
   display.textContent = value.toString();
 }

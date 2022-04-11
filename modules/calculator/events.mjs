@@ -18,6 +18,7 @@ import {
 import { updateDisplay } from './logic.mjs';
 
 // EDITOR
+// done
 function wireClearButton() {
   const button = document.querySelector('[data-func="clear"]');
   button.addEventListener('click', () => clearCurrentNumber());
@@ -51,7 +52,7 @@ function wireInversionButton() {
 function wireModuloButton() {
   const button = document.querySelector('[data-func="modulo"]');
   button.addEventListener('click', () => {
-    number.register = number.output;
+    number['1stRegister'] = number.output;
     number.operator = 'modulo';
   });
 }
@@ -59,7 +60,7 @@ function wireModuloButton() {
 function wireDivisionButton() {
   const button = document.querySelector('[data-func="division"]');
   button.addEventListener('click', () => {
-    number.register = number.output;
+    number['1stRegister'] = number.output;
     number.operator = 'division';
   });
 }
@@ -67,7 +68,7 @@ function wireDivisionButton() {
 function wireMultiplicationButton() {
   const button = document.querySelector('[data-func="multiplication"]');
   button.addEventListener('click', () => {
-    number.register = number.output;
+    number['1stRegister'] = number.output;
     number.operator = 'multiplication';
   });
 }
@@ -75,7 +76,7 @@ function wireMultiplicationButton() {
 function wireSubtractionButton() {
   const button = document.querySelector('[data-func="subtraction"]');
   button.addEventListener('click', () => {
-    number.register = number.output;
+    number['1stRegister'] = number.output;
     number.operator = 'subtraction';
   });
 }
@@ -83,10 +84,9 @@ function wireSubtractionButton() {
 function wireAdditionButton() {
   const button = document.querySelector('[data-func="addition"]');
   button.addEventListener('click', () => {
-    number.register = number.output;
+    number['1stRegister'] = number.output;
     number.output = 0;
     number.operator = 'addition';
-    updateDisplay(number.register)
   });
 }
 
@@ -98,12 +98,12 @@ function wireFactorialButton() {
 
 function wireExponentialButton() {
   const button = document.querySelector('[data-func="root"]');
-  button.addEventListener('click', () => exponential(number.register));
+  button.addEventListener('click', () => exponential(number['1stRegister']));
 }
 
 function wireRootButton() {
   const button = document.querySelector('[data-func="root"]');
-  button.addEventListener('click', () => root(number.register));
+  button.addEventListener('click', () => root(number['1stRegister']));
 }
 
 // EQUALITY
@@ -111,7 +111,6 @@ function wireEqualityButton() {
   const button = document.querySelector('[data-func="equality"]');
   button.addEventListener('click', () => {
     runOperation();
-    updateDisplay();
   });
 }
 
