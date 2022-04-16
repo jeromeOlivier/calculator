@@ -5,7 +5,7 @@ export const elements = [
   [
     { html: 'CLEAR', func: 'clear', class: 'clear' },
     { html: 'DEL', func: 'delete', class: 'del', },
-    { html: '%', func: 'modulo', class: 'operator' },
+    { html: 'MOD', func: 'modulo', class: 'operator' },
     { html: 'n&excl;', func: 'factorial', class: 'scientific', }
   ],
   [

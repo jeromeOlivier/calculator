@@ -34,17 +34,19 @@ body {
 #calculator {
     display: inline-grid;
     grid-template-columns: repeat(5, 1fr);
-    width: 420px;
+    width: 360px;
     grid-gap: 2px;
-    border: 3px solid rgb(28, 44, 59);
+    padding: 3px;
+    /*border: 3px solid rgb(28, 44, 59);*/
     border-radius: 30px;
-    background: rgb(27, 43, 58);
+    background: rgb(28, 44, 59);
 }
 
 sup {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     position: relative;
-    bottom: 1rem;
+    bottom: .8rem;
+    right: .1rem;
 }
 
 /* DISPLAY */
@@ -79,7 +81,7 @@ sup {
     display: flex;
     align-items: center;
     padding: 1rem 0;
-    height: 3rem;
+    height: 2.5rem;
     font-family: 'rMed', sans-serif;
 }
 
@@ -87,7 +89,7 @@ sup {
 
 [data-type='button'].clear {
     grid-column: 1 / span 2;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: hsl(331, 28%, 74%);
     background-color: hsl(330, 46%, 37%);
 }
@@ -98,7 +100,7 @@ sup {
 }
 
 [data-type='button'].del {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: hsl(331, 28%, 74%);
     background-color: hsl(330, 34%, 45%);
 }
@@ -157,7 +159,7 @@ sup {
 /* OPERATOR BUTTONS */
 
 [data-func='modulo'][data-type='button'].operator {
-    font-size: 2.2rem;
+    font-size: 1.5rem;
 }
 
 [data-type='button'].operator {
@@ -173,6 +175,7 @@ sup {
 /* SCIENTIFIC BUTTONS */
 
 [data-type='button'].scientific {
+    font-size: 2.5rem;
     color: hsl(89, 40%, 30%);
     background-color: hsl(90, 40%, 45%);
 }

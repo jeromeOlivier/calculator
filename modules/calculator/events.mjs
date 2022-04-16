@@ -11,11 +11,11 @@ import {
   removeLastDigit,
   root,
   runOperation,
+  setOperator,
   subtraction,
   updateDecimalWith,
   updateIntegerWith,
 } from '/modules/calculator/logic.mjs';
-import { updateDisplay } from './logic.mjs';
 
 // EDITOR
 // done
@@ -51,43 +51,27 @@ function wireInversionButton() {
 // OPERATORS
 function wireModuloButton() {
   const button = document.querySelector('[data-func="modulo"]');
-  button.addEventListener('click', () => {
-    number['1stRegister'] = number.output;
-    number.operator = 'modulo';
-  });
+  button.addEventListener('click', () => setOperator('modulo'));
 }
 
 function wireDivisionButton() {
   const button = document.querySelector('[data-func="division"]');
-  button.addEventListener('click', () => {
-    number['1stRegister'] = number.output;
-    number.operator = 'division';
-  });
+  button.addEventListener('click', () => setOperator('division'));
 }
 
 function wireMultiplicationButton() {
   const button = document.querySelector('[data-func="multiplication"]');
-  button.addEventListener('click', () => {
-    number['1stRegister'] = number.output;
-    number.operator = 'multiplication';
-  });
+  button.addEventListener('click', () => setOperator('multiplication'));
 }
 
 function wireSubtractionButton() {
   const button = document.querySelector('[data-func="subtraction"]');
-  button.addEventListener('click', () => {
-    number['1stRegister'] = number.output;
-    number.operator = 'subtraction';
-  });
+  button.addEventListener('click', () => setOperator('subtraction'));
 }
 
 function wireAdditionButton() {
   const button = document.querySelector('[data-func="addition"]');
-  button.addEventListener('click', () => {
-    number['1stRegister'] = number.output;
-    number.output = 0;
-    number.operator = 'addition';
-  });
+  button.addEventListener('click', () => setOperator('addition'));
 }
 
 // SCIENTIFIC
