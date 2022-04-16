@@ -1,5 +1,4 @@
 /* TYPEFACE */
-
 @font-face {
     font-family: 'rBold';
     src: url(./fonts/readexpro-bold-webfont.woff2) format('woff2');
@@ -15,7 +14,6 @@
 }
 
 /* STRUCTURE (BODY, CONTAINER & CALCULATOR GRID) */
-
 body {
     margin: 0;
     padding: 0;
@@ -24,6 +22,7 @@ body {
 
 #container {
     display: flex;
+    font-size: 3rem;
     flex-direction: column;
     height: 100vh;
     width: 100vw;
@@ -33,11 +32,10 @@ body {
 
 #calculator {
     display: inline-grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     width: 360px;
     grid-gap: 2px;
     padding: 3px;
-    /*border: 3px solid rgb(28, 44, 59);*/
     border-radius: 30px;
     background: rgb(28, 44, 59);
 }
@@ -50,23 +48,18 @@ sup {
 }
 
 /* DISPLAY */
-
 [data-type='display'].result {
-    grid-column: 1/ span 5;
+    grid-column: 1/ span 4;
     border-radius: 27px 27px 0 0;
-    padding-left: 1.4rem;
-    padding-right: 1.4rem;
+    padding: 1.2rem 1.4rem .8rem;
     justify-content: right;
-    font-size: 2.4rem;
     color: hsl(210, 50%, 75%);
     background-color: hsl(210, 30%, 48%);
 }
 
 /* BUTTONS */
-
 [data-type='button'] {
     font-family: 'rBold', sans-serif;
-    font-size: 3rem;
     display: grid;
     align-items: center;
     justify-content: center;
@@ -86,7 +79,6 @@ sup {
 }
 
 /* CLEAR AND DELETE */
-
 [data-type='button'].clear {
     grid-column: 1 / span 2;
     font-size: 1.5rem;
@@ -111,7 +103,6 @@ sup {
 }
 
 /* NUMBER BUTTONS */
-
 [data-type='button'].number {
     color: hsl(210, 30%, 75%);
     background-color: hsl(210, 33%, 35%);
@@ -123,7 +114,6 @@ sup {
 }
 
 /* SECONDARY BUTTONS */
-
 [data-type='button'].secondary {
     color: hsl(210, 30%, 75%);
     background-color: hsl(210, 33%, 30%);
@@ -157,9 +147,8 @@ sup {
 }
 
 /* OPERATOR BUTTONS */
-
-[data-func='modulo'][data-type='button'].operator {
-    font-size: 1.5rem;
+[data-func='percentage'][data-type='button'].operator {
+    font-size: 2rem;
 }
 
 [data-type='button'].operator {
@@ -172,25 +161,10 @@ sup {
     background-color: hsl(90, 38%, 35%);
 }
 
-/* SCIENTIFIC BUTTONS */
-
-[data-type='button'].scientific {
-    font-size: 2.5rem;
-    color: hsl(89, 40%, 30%);
-    background-color: hsl(90, 40%, 45%);
-}
-
-[data-type='button'].scientific:active {
-    color: hsl(90, 41%, 25%);
-    background-color: hsl(90, 42%, 40%);
-}
-
 /* EQUALITY BUTTON */
-
 [data-type='button'].equality {
-    grid-column: 5 / span 1;
-    grid-row: 5 / span 2;
-    height: auto;
+    /*grid-column: 4 / span 2;*/
+    /*grid-row: 6 / span 1;*/
     border-radius: 0 0 27px 0;
     color: hsl(90, 30%, 70%);
     background-color: hsl(90, 37%, 33%);

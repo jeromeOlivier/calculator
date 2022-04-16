@@ -1,93 +1,94 @@
 import {
   addition,
-  clearCurrentNumber,
   division,
-  exponential,
-  factorial,
-  invert,
-  modulo,
   multiplication,
   number,
-  removeLastDigit,
-  root,
   runOperation,
   setOperator,
   subtraction,
-  updateDecimalWith,
-  updateIntegerWith,
 } from '/modules/calculator/logic.mjs';
+
+import {
+  clearDisplay,
+  invertDisplayedNumber,
+  trimDisplayedNumber,
+  updateDisplay,
+} from '/modules/calculator/interface.mjs';
 
 // EDITOR
 // done
 function wireClearButton() {
   const button = document.querySelector('[data-func="clear"]');
-  button.addEventListener('click', () => clearCurrentNumber());
+  button.addEventListener('click', () => {
+    clearDisplay();
+    number.last = null;
+  });
 }
 
 function wireDeleteButton() {
   const button = document.querySelector('[data-func="delete"]');
-  button.addEventListener('click', () => removeLastDigit());
+  button.addEventListener('click', () => {
+    trimDisplayedNumber();
+    number.last = 'number';
+  });
 }
 
 // NUMBER PAD
 function wireNumberButtons() {
-  const buttons = document.querySelectorAll('.number');
-  buttons.forEach(button => button.addEventListener('click', () => {
-    const userInput = Number(button.getAttribute('data-func'));
-    number.isWhole ? updateIntegerWith(userInput) : updateDecimalWith(userInput);
+  const btn = document.querySelectorAll('.number');
+  btn.forEach(b => b.addEventListener('click', () => {
+    updateDisplay(b.innerHTML);
+    number.last = 'number';
   }));
 }
 
 function wireDecimalButton() {
-  const button = document.querySelector('[data-func="."]');
-  button.addEventListener('click', () => number.isWhole = false);
+  const btn = document.querySelector('[data-func="."]');
+  btn.addEventListener('click', () => {
+    updateDisplay(btn.innerHTML);
+    number.last = 'number';
+  });
 }
 
 function wireInversionButton() {
-  const button = document.querySelector('[data-func="inversion"]');
-  button.addEventListener('click', () => invert());
+  const btn = document.querySelector('[data-func="inversion"]');
+  btn.addEventListener('click', () => {
+    invertDisplayedNumber();
+    number.last = 'number';
+  });
 }
 
 // OPERATORS
-function wireModuloButton() {
-  const button = document.querySelector('[data-func="modulo"]');
-  button.addEventListener('click', () => setOperator('modulo'));
-}
-
 function wireDivisionButton() {
   const button = document.querySelector('[data-func="division"]');
-  button.addEventListener('click', () => setOperator('division'));
+  button.addEventListener('click', () => {
+    setOperator('division');
+    number.last = 'operator';
+  });
 }
 
 function wireMultiplicationButton() {
   const button = document.querySelector('[data-func="multiplication"]');
-  button.addEventListener('click', () => setOperator('multiplication'));
+  button.addEventListener('click', () => {
+    setOperator('multiplication');
+    number.last = 'operator';
+  });
 }
 
 function wireSubtractionButton() {
   const button = document.querySelector('[data-func="subtraction"]');
-  button.addEventListener('click', () => setOperator('subtraction'));
+  button.addEventListener('click', () => {
+    setOperator('subtraction');
+    number.last = 'operator';
+  });
 }
 
 function wireAdditionButton() {
   const button = document.querySelector('[data-func="addition"]');
-  button.addEventListener('click', () => setOperator('addition'));
-}
-
-// SCIENTIFIC
-function wireFactorialButton() {
-  const button = document.querySelector('[data-func="root"]');
-  button.addEventListener('click', () => factorial());
-}
-
-function wireExponentialButton() {
-  const button = document.querySelector('[data-func="root"]');
-  button.addEventListener('click', () => exponential(number['1stRegister']));
-}
-
-function wireRootButton() {
-  const button = document.querySelector('[data-func="root"]');
-  button.addEventListener('click', () => root(number['1stRegister']));
+  button.addEventListener('click', () => {
+    setOperator('addition');
+    number.last = 'operator';
+  });
 }
 
 // EQUALITY
@@ -104,13 +105,9 @@ export function wireButtons() {
   wireNumberButtons();
   wireDecimalButton();
   wireInversionButton();
-  wireModuloButton();
   wireDivisionButton();
   wireMultiplicationButton();
   wireSubtractionButton();
   wireAdditionButton();
-  wireFactorialButton();
-  wireExponentialButton();
-  wireRootButton();
   wireEqualityButton();
 }
