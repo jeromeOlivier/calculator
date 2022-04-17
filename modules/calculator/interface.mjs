@@ -1,5 +1,5 @@
 import { elements } from './elements.mjs';
-import { number} from './logic.mjs';
+import { number } from './logic.mjs';
 
 export function constructInterface() {
   const calculator = document.querySelector('#calculator');

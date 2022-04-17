@@ -33,7 +33,7 @@ export function division() {
     number.operator = 'division';
     return formatNumber(number.register);
   } else {
-    return 'Error'
+    return 'Error';
   }
 }
 
@@ -75,7 +75,9 @@ export function runOperation() {
 }
 
 function getDisplayNumber() {
-  return Number(document.querySelector('[data-func="display"]').innerHTML);
+  return Number(
+    document.querySelector('[data-func="display"]').innerHTML,
+  );
 }
 
 function formatNumber(number) {
