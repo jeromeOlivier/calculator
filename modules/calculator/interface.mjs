@@ -21,7 +21,7 @@ export function constructInterface() {
 export function updateDisplay(value) {
   const display = document.querySelector('[data-func="display"]');
   const includesDot = display.innerHTML.includes('.');
-  resetDisplay(value); // display needs to be reset to avoid concatenation
+  resetDisplay(value); // display needs to be reset to avoid weird concatenation
   if (!includesDot && display.innerHTML.length < 10) {
     display.innerHTML += value;
   } else if (value !== '.' && display.innerHTML.length < 10) {
@@ -29,7 +29,7 @@ export function updateDisplay(value) {
   }
 }
 
-export function displayResult(value) {
+export function displayFinal(value) {
   const display = document.querySelector('[data-func="display"]');
   clearDisplay();
   display.innerHTML = value;
@@ -46,7 +46,8 @@ function resetDisplay(value) {
   (number.last === 'operator') && (display.innerHTML = '');
   (number.last === 'equality') && (display.innerHTML = '');
   (display.innerHTML === '0' && value !== '.') && (display.innerHTML = '');
-  (display.innerHTML === '-0' && value !== '.') && (display.innerHTML = '-');
+  // (display.innerHTML === '-0' && value !== '.') && (display.innerHTML = '-');
+  (display.innerHTML === 'Error') && (display.innerHTML = '');
 }
 
 export function invertDisplayedNumber() {
@@ -58,7 +59,7 @@ export function invertDisplayedNumber() {
   }
 }
 
-export function trimDisplayedNumber() {
+export function trimDisplayedNumber() { // delete last digit
   const display = document.querySelector('[data-func="display"]');
   display.innerHTML = display.innerHTML.substring(0, display.innerHTML.length - 1);
   (display.innerHTML === '') && (display.innerHTML = '0');

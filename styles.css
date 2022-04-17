@@ -38,6 +38,9 @@ body {
     padding: 3px;
     border-radius: 30px;
     background: rgb(28, 44, 59);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 sup {
@@ -64,9 +67,6 @@ sup {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
 }
 
 [data-type='button'],
