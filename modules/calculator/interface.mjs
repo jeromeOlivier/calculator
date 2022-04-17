@@ -1,4 +1,5 @@
 import { elements } from './elements.mjs';
+import { number} from './logic.mjs';
 
 export function constructInterface() {
   const calculator = document.querySelector('#calculator');
@@ -20,8 +21,7 @@ export function constructInterface() {
 export function updateDisplay(value) {
   const display = document.querySelector('[data-func="display"]');
   const includesDot = display.innerHTML.includes('.');
-  (display.innerHTML === '0' && value !== '.') && (display.innerHTML = '');
-  (display.innerHTML === '-0' && value !== '.') && (display.innerHTML = '-');
+  resetDisplay(value); // display needs to be reset to avoid concatenation
   if (!includesDot && display.innerHTML.length < 10) {
     display.innerHTML += value;
   } else if (value !== '.' && display.innerHTML.length < 10) {
@@ -29,9 +29,24 @@ export function updateDisplay(value) {
   }
 }
 
+export function displayResult(value) {
+  const display = document.querySelector('[data-func="display"]');
+  clearDisplay();
+  display.innerHTML = value;
+
+}
+
 export function clearDisplay() {
   const display = document.querySelector('[data-func="display"]');
   display.innerHTML = '0';
+}
+
+function resetDisplay(value) {
+  const display = document.querySelector('[data-func="display"]');
+  (number.last === 'operator') && (display.innerHTML = '');
+  (number.last === 'equality') && (display.innerHTML = '');
+  (display.innerHTML === '0' && value !== '.') && (display.innerHTML = '');
+  (display.innerHTML === '-0' && value !== '.') && (display.innerHTML = '-');
 }
 
 export function invertDisplayedNumber() {

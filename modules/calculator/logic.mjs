@@ -1,12 +1,13 @@
-import { updateDisplay } from './interface.mjs';
+import { updateDisplay, displayResult } from './interface.mjs';
 
 export const number = {
   resister: 0,
-  operator: undefined,
-  last: null,
+  operator: '',
+  last: '',
   reset: function () {
-    this.register01 = 0;
-    this.operator = undefined;
+    this.register = 0;
+    this.operator = '';
+    this.last = '';
   },
   printAll: function () {
     console.log(
@@ -18,23 +19,17 @@ export const number = {
 };
 
 export function setOperator(val) {
-  // if operator !== null, run operation and save to register and display
-  const display = Number(document.querySelector('[data-func="display"]'));
-  number.operator = val;
-  number.register = display;
-  number.printAll();
-}
-
-export function modulo() {
-  const result = number.register01 % number.register02;
-  if (result.toString() === 'NaN') {
-    updateDisplay(`Error`);
-  } else {
-    updateDisplay(result);
+  if (number.operator === '') {
+    number.operator = val;
+    number.last = 'operator';
+    number.register = Number(document.querySelector('[data-func="display"]').innerHTML);
+  } else if (number.operator === 'equality') {
+    number.register = Number(document.querySelector('[data-func="display"]').innerHTML);
+    runOperation();
+    number.operator = val;
+    number.last = 'operator';
   }
-  number.output = 0;
-  number.register01 = 0;
-  number.register02 = 0;
+  number.printAll();
 }
 
 export function division() {
@@ -69,39 +64,18 @@ export function subtraction() { // needs to continue while hitting =
 }
 
 export function addition() {
-  number.output += number.register01;
-  if (number.register02 !== 0) {
-    number.register01 = number.register02;
-    number.register02 = 0;
-  }
-  updateDisplay(number.output);
-}
-
-export function factorial() {
-}
-
-export function exponential() {
-
-}
-
-export function root() {
-
+  const display = document.querySelector('[data-func="display"]');
+  const calc = Number(display.innerHTML) + number.register;
+  const round = calc % 1 !== 0 ? Math.round(calc * 1000) / 1000 : calc;
+  const final = round > 9_999_999_999 ? calc.toExponential(2) : round;
+  displayResult(final);
 }
 
 export function runOperation() {
-  (number.operator === 'modulo') && modulo();
   (number.operator === 'division') && division();
   (number.operator === 'multiplication') && multiplication();
   (number.operator === 'subtraction') && subtraction();
   (number.operator === 'addition') && addition();
-  number.register02 = 0;
   number.printAll();
 }
 
-// HELPERS ---------------------------------------------------------------------
-function updateIsWholeBoolean() {
-  if (!number.isWhole) {
-    number.decimalPlace = number.decimalPlace / 10;
-    if (number.decimalPlace / 10 === 1) number.isWhole = true;
-  }
-}

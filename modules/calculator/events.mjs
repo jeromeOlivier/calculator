@@ -16,12 +16,11 @@ import {
 } from '/modules/calculator/interface.mjs';
 
 // EDITOR
-// done
 function wireClearButton() {
   const button = document.querySelector('[data-func="clear"]');
   button.addEventListener('click', () => {
     clearDisplay();
-    number.last = null;
+    number.reset();
   });
 }
 
@@ -61,40 +60,29 @@ function wireInversionButton() {
 // OPERATORS
 function wireDivisionButton() {
   const button = document.querySelector('[data-func="division"]');
-  button.addEventListener('click', () => {
-    setOperator('division');
-    number.last = 'operator';
-  });
+  button.addEventListener('click', () => setOperator('division'));
 }
 
 function wireMultiplicationButton() {
   const button = document.querySelector('[data-func="multiplication"]');
-  button.addEventListener('click', () => {
-    setOperator('multiplication');
-    number.last = 'operator';
-  });
+  button.addEventListener('click', () => setOperator('multiplication'));
 }
 
 function wireSubtractionButton() {
   const button = document.querySelector('[data-func="subtraction"]');
-  button.addEventListener('click', () => {
-    setOperator('subtraction');
-    number.last = 'operator';
-  });
+  button.addEventListener('click', () => setOperator('subtraction'));
 }
 
 function wireAdditionButton() {
   const button = document.querySelector('[data-func="addition"]');
-  button.addEventListener('click', () => {
-    setOperator('addition');
-    number.last = 'operator';
-  });
+  button.addEventListener('click', () => setOperator('addition'));
 }
 
 // EQUALITY
 function wireEqualityButton() {
   const button = document.querySelector('[data-func="equality"]');
   button.addEventListener('click', () => {
+    number.last = 'equality';
     runOperation();
   });
 }
