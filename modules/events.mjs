@@ -5,14 +5,14 @@ import {
   runOperation,
   setOperator,
   subtraction,
-} from '/modules/calculator/logic.mjs';
+} from './logic.mjs';
 
 import {
   clearDisplay,
   invertDisplayedNumber,
   trimDisplayedNumber,
   updateDisplay,
-} from '/modules/calculator/interface.mjs';
+} from './interface.mjs';
 
 // EDITOR
 function wireClearButton() {
