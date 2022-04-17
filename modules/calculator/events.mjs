@@ -2,7 +2,6 @@ import {
   addition,
   division,
   multiplication,
-  number,
   runOperation,
   setOperator,
   subtraction,
@@ -20,7 +19,6 @@ function wireClearButton() {
   const button = document.querySelector('[data-func="clear"]');
   button.addEventListener('click', () => {
     clearDisplay();
-    number.reset();
   });
 }
 
@@ -28,7 +26,6 @@ function wireDeleteButton() {
   const button = document.querySelector('[data-func="delete"]');
   button.addEventListener('click', () => {
     trimDisplayedNumber();
-    number.last = 'number';
   });
 }
 
@@ -37,7 +34,6 @@ function wireNumberButtons() {
   const btn = document.querySelectorAll('.number');
   btn.forEach(b => b.addEventListener('click', () => {
     updateDisplay(b.innerHTML);
-    number.last = 'number';
   }));
 }
 
@@ -45,7 +41,6 @@ function wireDecimalButton() {
   const btn = document.querySelector('[data-func="."]');
   btn.addEventListener('click', () => {
     updateDisplay(btn.innerHTML);
-    number.last = 'number';
   });
 }
 
@@ -53,7 +48,6 @@ function wireInversionButton() {
   const btn = document.querySelector('[data-func="inversion"]');
   btn.addEventListener('click', () => {
     invertDisplayedNumber();
-    number.last = 'number';
   });
 }
 
@@ -75,20 +69,13 @@ function wireSubtractionButton() {
 
 function wireAdditionButton() {
   const button = document.querySelector('[data-func="addition"]');
-  button.addEventListener('click', () => {
-    number.last = 'operator';
-    setOperator('addition');
-    addition()
-  });
+  button.addEventListener('click', () => setOperator('addition'));
 }
 
 // EQUALITY
 function wireEqualityButton() {
   const button = document.querySelector('[data-func="equality"]');
-  button.addEventListener('click', () => {
-    number.last = 'equality';
-    runOperation();
-  });
+  button.addEventListener('click', () => runOperation());
 }
 
 export function wireButtons() {

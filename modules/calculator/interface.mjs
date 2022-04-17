@@ -22,23 +22,25 @@ export function updateDisplay(value) {
   const display = document.querySelector('[data-func="display"]');
   const includesDot = display.innerHTML.includes('.');
   resetDisplay(value); // display needs to be reset to avoid weird concatenation
-  if (!includesDot && display.innerHTML.length < 10) {
+  if (!includesDot && Number(display.innerHTML) < 9_999_999_999) {
     display.innerHTML += value;
-  } else if (value !== '.' && display.innerHTML.length < 10) {
+  } else if (value !== '.' && Number(display.innerHTML) < 9_999_999_999) {
     display.innerHTML += value;
   }
+  number.last = 'number';
+  number.printAll();
 }
 
 export function displayFinal(value) {
   const display = document.querySelector('[data-func="display"]');
   clearDisplay();
   display.innerHTML = value;
-
 }
 
 export function clearDisplay() {
   const display = document.querySelector('[data-func="display"]');
   display.innerHTML = '0';
+  number.reset();
 }
 
 function resetDisplay(value) {
@@ -46,7 +48,6 @@ function resetDisplay(value) {
   (number.last === 'operator') && (display.innerHTML = '');
   (number.last === 'equality') && (display.innerHTML = '');
   (display.innerHTML === '0' && value !== '.') && (display.innerHTML = '');
-  // (display.innerHTML === '-0' && value !== '.') && (display.innerHTML = '-');
   (display.innerHTML === 'Error') && (display.innerHTML = '');
 }
 

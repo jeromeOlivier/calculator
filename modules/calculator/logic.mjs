@@ -1,4 +1,4 @@
-import { updateDisplay, displayFinal } from './interface.mjs';
+import { displayFinal } from './interface.mjs';
 
 export const number = {
   register: 0,
@@ -19,56 +19,43 @@ export const number = {
 };
 
 export function setOperator(val) {
-  const display = getDisplayNumber();
-  if (number.operator === '') {
-    number.operator = val;
-    number.last = 'operator';
-    number.register = display;
-  } else if (number.operator === 'equality') {
-    number.register = display;
-    runOperation();
-    number.operator = val;
-    number.last = 'operator';
-  }
+  if (number.last !== 'equality') runOperation();
+  number.register = getDisplayNumber();
+  number.operator = val;
+  number.last = 'operator';
   number.printAll();
 }
 
 export function division() {
-  const result = (number.register02 === 0) ?
-    number.output / number.register01 :
-    number.register01 / number.register02;
-  if (result.toString() === 'NaN') {
-    updateDisplay(`Error`);
-    number.reset();
+  const display = getDisplayNumber();
+  if (display !== 0 && number.register !== 0) {
+    number.register /= display;
+    number.operator = 'division';
+    return formatNumber(number.register);
   } else {
-    updateDisplay(result);
-    number.output = result;
-    number.register01 = number.register02 !== 0 ?
-      number.register02 : number.register01;
+    return 'Error'
   }
-  number.register02 = 0;
 }
 
 export function multiplication() {
-  number.output *= number.register01;
+  const display = getDisplayNumber();
+  number.register *= display;
+  number.operator = 'multiplication';
+  return formatNumber(number.register);
 }
 
-export function subtraction() { // needs to continue while hitting =
-  number.output = number.register02 === 0 ?
-    number.output - number.register01 :
-    number.register01 - number.register02;
-  if (number.register02 !== 0) {
-    number.register01 = number.register02;
-    number.register02 = 0;
-  }
-  updateDisplay(number.output);
+export function subtraction() {
+  const display = getDisplayNumber();
+  number.register -= display;
+  number.operator = 'subtraction';
+  return formatNumber(number.register);
 }
 
 export function addition() {
   const display = getDisplayNumber();
-  const calc = display + number.register;
-  (number.register === 0) && (number.register = display); // edge case
-  return formatNumber(calc);
+  number.register += display;
+  number.operator = 'addition';
+  return formatNumber(number.register);
 }
 
 export function runOperation() {
@@ -83,9 +70,11 @@ export function runOperation() {
   } else {
     displayFinal(result);
   }
+  number.last = 'equality';
+  number.printAll();
 }
 
-export function getDisplayNumber() {
+function getDisplayNumber() {
   return Number(document.querySelector('[data-func="display"]').innerHTML);
 }
 
