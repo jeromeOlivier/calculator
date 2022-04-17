@@ -75,7 +75,11 @@ function wireSubtractionButton() {
 
 function wireAdditionButton() {
   const button = document.querySelector('[data-func="addition"]');
-  button.addEventListener('click', () => setOperator('addition'));
+  button.addEventListener('click', () => {
+    number.last = 'operator';
+    setOperator('addition');
+    addition()
+  });
 }
 
 // EQUALITY

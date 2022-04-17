@@ -1,7 +1,7 @@
 import { updateDisplay, displayFinal } from './interface.mjs';
 
 export const number = {
-  resister: 0,
+  register: 0,
   operator: '',
   last: '',
   reset: function () {
