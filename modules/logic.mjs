@@ -84,5 +84,9 @@ function formatNumber(number) {
   // for decimals
   const round = number % 1 !== 0 ? Math.round(number * 1000) / 1000 : number;
   // for big numbers
-  return round > 9_999_999_999 ? round.toExponential(2) : round;
+  if (round > 9_999_999_999 || round < -9_999_999_999) {
+    return round.toExponential(2);
+  } else {
+    return round;
+  }
 }
